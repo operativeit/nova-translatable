@@ -1,6 +1,7 @@
 <template>
-  <div class="translatable-field pt-2" ref="main" v-if="currentField.visible">
+  <!--div class="translatable-field pt-2 w-full" ref="main" v-if="currentField.visible"-->
     <LocaleTabs
+      v-show="currentField.translatable.display_type!=='none'"
       :locales="locales"
       :attribute="field.attribute"
       :active-locale="activeLocale"
@@ -10,9 +11,8 @@
       @tabClick="setActiveLocale"
       @doubleClick="setAllLocale"
     />
-
-    <div v-for="locale in locales" :key="locale.key">
       <component
+        v-for="locale in locales" :key="locale.key"
         v-show="locale.key === activeLocale"
         :is="'form-' + currentField.translatable.original_component"
         :field="fields[locale.key]"
@@ -21,8 +21,7 @@
         :translatable-locale="locale.key"
         :show-help-text="showHelpText"
       />
-    </div>
-  </div>
+  <!--/div-->
 </template>
 
 <script>
